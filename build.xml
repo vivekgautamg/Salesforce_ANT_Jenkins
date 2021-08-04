@@ -1,4 +1,4 @@
-<project name="Sample usage of Salesforce Ant tasks" default="test" basedir="." xmlns:sf="antlib:com.salesforce">
+<project name="Sample usage of Salesforce Ant tasks" default="test" basedir="." xmlns="antlib:com.salesforce">
 
     <property file="build.properties"/>
     <property environment="env"/>
@@ -21,7 +21,7 @@
             <pathelement location="../ant-salesforce.jar" />        	
         </classpath>
     </taskdef>
-	
+<!--	
     <!-- Test out deploy and retrieve verbs for package 'mypkg' -->
     <target name="test">
       <!-- Upload the contents of the "mypkg" package -->
@@ -58,20 +58,20 @@
     <target name="deployZip">
       <sf:deploy username="${sf.username}" password="${sf.password}" sessionId="${sf.sessionId}" serverurl="${sf.serverurl}" maxPoll="${sf.maxPoll}" zipFile="${sf.zipFile}" pollWaitMillis="1000" rollbackOnError="true"/>
     </target>
-
+-->
     <!-- Shows deploying code & running tests for code in directory -->
     <target name="deployCode">
       <!-- Upload the contents of the "codepkg" directory, running the tests for just 1 class -->
-      <sf:deploy username="${sf2.username}" password="${sf2.password}" sessionId="${sf2.sessionId}" serverurl="${sf2.serverurl}" maxPoll="${sf2.maxPoll}" deployRoot="codepkg" testLevel="RunSpecifiedTests" rollbackOnError="true">
+      <deploy username="${sf2.username}" password="${sf2.password}" sessionId="${sf2.sessionId}" serverurl="${sf2.serverurl}" maxPoll="${sf2.maxPoll}" deployRoot="codepkg" testLevel="RunSpecifiedTests" rollbackOnError="true">
       	 <runTest>SampleDeployClass</runTest> 
-      </sf:deploy>
+      </deploy>
     </target>
 	
 	 <!-- Shows deploying code with no TestLevel sepcified -->
     <target name="deployCodeNoTestLevelSpecified">
-      <sf:deploy username="${sf2.username}" password="${sf2.password}" sessionId="${sf2.sessionId}" serverurl="${sf2.serverurl}" maxPoll="${sf2.maxPoll}" deployRoot="codepkg" rollbackOnError="true"/>
+      <deploy username="${sf2.username}" password="${sf2.password}" sessionId="${sf2.sessionId}" serverurl="${sf2.serverurl}" maxPoll="${sf2.maxPoll}" deployRoot="codepkg" rollbackOnError="true"/>
     </target>
-	
+<!--	
 	<!-- Shows deploying code and running tests only within the org namespace -->
 	<target name="deployCodeRunLocalTests">
 	  <sf:deploy username="${sf.username}" password="${sf.password}" sessionId="${sf.sessionId}" serverurl="${sf.serverurl}" maxPoll="${sf.maxPoll}" deployRoot="codepkg" rollbackOnError="true"  testlevel="RunLocalTests"/>
@@ -81,13 +81,13 @@
     <target name="undeployCode">
       <sf:deploy username="${sf.username}" password="${sf.password}" sessionId="${sf.sessionId}" serverurl="${sf.serverurl}" maxPoll="${sf.maxPoll}" deployRoot="removecodepkg"/>
     </target>
-
+-->
     <!-- Shows retrieving code; only succeeds if done after deployCode -->
     <target name="retrieveCode">
       <!-- Retrieve the contents listed in the file codepkg/package.xml into the codepkg directory -->
       <sf:retrieve username="${sf1.username}" password="${sf1.password}" sessionId="${sf1.sessionId}" serverurl="${sf1.serverurl}" maxPoll="${sf1.maxPoll}" retrieveTarget="codepkg" unpackaged="codepkg/package.xml"/>
     </target>
-
+<!--
     <!-- Shows deploying code, running all tests, and running tests (1 of which fails), and logging. -->
     <target name="deployCodeFailingTest">
       <!-- Upload the contents of the "codepkg" package, running all tests -->
@@ -118,4 +118,5 @@
     <target name="describeMetadata">
       <sf:describeMetadata username="${sf.username}" password="${sf.password}" sessionId="${sf.sessionId}" serverurl="${sf.serverurl}"/>
     </target>
+-->
 </project>
